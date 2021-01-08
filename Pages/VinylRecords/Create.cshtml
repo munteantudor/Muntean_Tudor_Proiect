@@ -1,0 +1,78 @@
+﻿@page
+@model Muntean_Tudor_Proiect.Pages.VinylRecords.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Vinyl</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Vinyl.Album" class="control-label"></label>
+                <input asp-for="Vinyl.Album" class="form-control" />
+                <span asp-validation-for="Vinyl.Album" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vinyl.Artist" class="control-label"></label>
+                <input asp-for="Vinyl.Artist" class="form-control" />
+                <span asp-validation-for="Vinyl.Artist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vinyl.Price" class="control-label"></label>
+                <input asp-for="Vinyl.Price" class="form-control" />
+                <span asp-validation-for="Vinyl.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vinyl.PublishingDate" class="control-label"></label>
+                <input asp-for="Vinyl.PublishingDate" class="form-control" />
+                <span asp-validation-for="Vinyl.PublishingDate" class="textdanger"></span>
+            </div>
+            <label asp-for="Vinyl.ColorID" class="control-label">Color</label>
+            <select asp-for="Vinyl.ColorID" class="form-control" asp-items="ViewBag.ColorID">
+            </select>
+            <span asp-validation-for="Vinyl.ColorID" class="text-danger"></span>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AssignedCategoryDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedCourses"
+                                               value="@cat.CategoryID"
+                                               @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                        @cat.CategoryID @: @cat.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
